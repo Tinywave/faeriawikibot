@@ -32,3 +32,33 @@ class GithubResource:
     @staticmethod
     def get_merlin_shortened_csv():
         return 'https://raw.githubusercontent.com/abrakam/Faeria_Cards/master/CardExport/merlin_shortened.csv'
+
+
+class GamepediaResource:
+    @property
+    def get_wiki(self):
+        return 'faeria.gamepedia.com'
+
+    @property
+    def get_english_wiki(self):
+        return 'faeria.gamepedia.com'
+
+    @property
+    def get_french_wiki(self):
+        return 'faeria-fr.gamepedia.com'
+
+    @property
+    def get_german_wiki(self):
+        return 'faeria-de.gamepedia.com'
+
+    @property
+    def get_portuguese_wiki(self):
+        return 'faeria-pt.gamepedia.com'
+
+    @property
+    def get_russian_wiki(self):
+        return 'faeri-ru.gamepedia.com'
+
+    @property
+    def get_spanish_wiki(self):
+        return 'faeria-es.gamepedia.com'

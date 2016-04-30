@@ -68,7 +68,7 @@ class Faeriawikibot:
             username = cfg_file['account']['username']
         if password is None:
             password = cfg_file['account']['password']
-        self.gc = gamepedia_client.GamepediaClient(username, password)
+        self.gc = gamepedia_client.GamepediaClient(username=username, password=password)
 
     '''
     Update all images from all languages
@@ -157,6 +157,9 @@ class Faeriawikibot:
 
     '''
     Fix rarity
+    Rare (Pink) got renamed to Epic
+    Exceptional (Blue) got renamed to Rare
+    Changes were only visual and not in the datasets, so I need to adjust them here.
     '''
     @staticmethod
     def fix_rarity(string):

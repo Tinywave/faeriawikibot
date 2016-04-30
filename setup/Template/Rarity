@@ -1,0 +1,6 @@
+{{#if:{{{1|}}}| <span {{#switch:{{{1|}}}
+| Common => {{Common}}
+| Rare => {{Rare}} 
+| Epic => {{Epic}}
+| Legendary => {{Legendary}}}}</span> }}<noinclude>
+[[Category:Display templates]]</noinclude>

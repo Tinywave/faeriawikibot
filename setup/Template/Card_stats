@@ -1,0 +1,129 @@
+<includeonly>
+{|style="width:23em; background: #000000; border: 1px solid #9e8c7f; color: #b3a498; padding: 3px; float: right; margin-left: 1em; margin-right:1em; margin-bottom: 0.5em;"
+|
+{| style="width: 100%; border: 1px solid #000000; background: #014b4a; padding: 0.2em;"
+|-
+! colspan="2" | {{header|{{{name|{{{card_name|}}}}}}}}
+|- style="text-align:center"
+| colspan="2" style="padding:0.5em;" class="cardimage" | {{{image|[[File:{{{illustration|}}}|280px]]}}}
+|-
+! colspan="2" | {{headersm|Statistics}}
+|-
+{{#if: {{{card_id|}}}|
+{{!}} '''ID:'''
+{{!}} {{{card_id|}}} }}
+|-
+{{#if: {{{card_color|}}}|
+{{!}} '''Color/Faction:'''
+{{!}} {{{card_color|}}} }}
+|-
+{{#if: {{{card_name|}}}|
+{{!}} '''Card Name:'''
+{{!}} {{{card_name|}}} }}
+|-
+{{#if: {{{card_type|}}}|
+{{!}} '''Type:'''
+{{!}} {{{card_type|}}} }}
+|-
+{{#if: {{{rarity|}}}|
+{{!}} '''Rarity:'''
+{{!}} <span {{#switch: {{{rarity|}}}
+| Common => {{Common}}
+| Rare => {{Rare}}
+| Epic => {{Epic}}
+| Legendary => {{Legendary}} }} </span> }}
+|-
+{{#if: {{{gold|}}}|
+{{!}} '''Gold Cost:'''
+{{!}} {{{gold|}}} {{Gold}} }}
+|-
+{{#if: {{{faeria|}}}|
+{{!}} '''Faeria Cost:'''
+{{!}} {{{faeria|}}} {{Faeria}} }}
+|-
+{{#if: {{{lake|}}}|
+{{!}} '''Lakes Required:'''
+{{!}} {{{lake|}}} {{Lake}} }}
+|-
+{{#if: {{{mountain|}}}|
+{{!}} '''Mountains Required:'''
+{{!}} {{{mountain|}}} {{Mountain}} }}
+|-
+{{#if: {{{forest|}}}|
+{{!}} '''Forests Required:'''
+{{!}} {{{forest|}}} {{Forest}} }}
+|-
+{{#if: {{{desert|}}}|
+{{!}} '''Deserts Required:'''
+{{!}} {{{desert|}}} {{Desert}} }}
+|-
+{{#if: {{{power|}}}|
+{{!}} '''Power:'''
+{{!}} {{{power|}}} {{power}} }}
+|-
+{{#if: {{{life|}}}|
+{{!}} '''Life:'''
+{{!}} {{{life|}}} {{life}} }}
+|-
+{{#if: {{{codexcode1|}}}|
+{{!}} '''codexcode1:'''
+{{!}} {{{codexcode1|}}} }}
+|-
+{{#if: {{{codexcode2|}}}|
+{{!}} '''codexcode2:'''
+{{!}} {{{codexcode2|}}} }}
+|-
+{{#if: {{{codexcode3|}}}|
+{{!}} '''codexcode3:'''
+{{!}} {{{codexcode3|}}} }}
+|}
+|}
+<div style="font-size: 120%;">{{{desc|}}}</div><br>
+</includeonly>
+<noinclude>
+Example: 
+<pre>
+{{Card stats| card_id = 73
+| illustration = english_73.png
+| card_color = Blue
+| card_name = Gabrian Cistern
+| card_type = Structure
+| rarity = Rare
+| faeria = 4
+| lake = 2
+| forest = 
+| mountain = 
+| desert = 
+| power = 
+| life = 3
+| desc = {{production}} - Gain {{faeria|3}}. Deal 1 damage to this structure.
+| ability1 = production
+| ability2 = faeria
+| ability3 = 
+| ability4 = 
+| ability5 = 
+| codexcode1 = 
+| codexcode2 = 0
+| codexcode3= 101000
+}}
+</pre>
+</noinclude>
+<includeonly>
+
+[[Category:Cards]]
+[[Category:{{{card_color}}} Cards]]
+[[Category:{{{card_type}}} Cards]]
+[[Category:{{{card_color}}} {{{card_type}}} Cards]]
+[[Category:{{{rarity}}} Cards]]
+
+{{#if: {{{lake|}}}|[[Category:Cards which require lakes]]}}
+{{#if: {{{mountain|}}}|[[Category:Cards which require mountains]]}}
+{{#if: {{{forest|}}}|[[Category:Cards which require forests]]}}
+{{#if: {{{deserts|}}}|[[Category:Cards which require deserts]]}}
+
+{{#if: {{{ability1|}}}|[[Category:Cards with {{{ability1|}}} effect]]}}
+{{#if: {{{ability2|}}}|[[Category:Cards with {{{ability2|}}} effect]]}}
+{{#if: {{{ability3|}}}|[[Category:Cards with {{{ability3|}}} effect]]}}
+{{#if: {{{ability4|}}}|[[Category:Cards with {{{ability4|}}} effect]]}}
+{{#if: {{{ability5|}}}|[[Category:Cards with {{{ability5|}}} effect]]}}
+</includeonly>

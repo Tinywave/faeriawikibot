@@ -1,0 +1,1 @@
+{{#if: {{{1|}}}| {{ItemLink|text={{#if: {{{1|}}}|{{{1|}}}|''}}|link=Red|image=Land Mountain White.png|size=18px}}| }}
