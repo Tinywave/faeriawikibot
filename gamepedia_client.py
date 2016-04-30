@@ -20,4 +20,11 @@ class GamepediaClient:
         print(description + '\n')
         self.mwc.upload(open(imagename, 'rb'), destination, description)
 
-    def submit_card(self, card):
+    def submit_card(self, mc, card):
+        page = self.mwc.Pages[mc['card_name']]
+        text = page.text()
+        if '{{Card infobox' in text:
+            page = self.mwc.Pages[mc['card_name'] + ' (Historical)']
+            page.save('{{historical content}}\n' + text)
+        page = self.mwc.Pages[mc['card_name']]
+        page.save(card)
