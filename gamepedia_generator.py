@@ -15,7 +15,12 @@ class GamepediaGenerator:
                            '| deck1 = {deck1}\n' \
                            '| deckq1 = {deckq1}\n}}'
     template_cardinfobox = '{{Card stats| card_id = {card_id}\n' \
-                           '| illustration = {illustration}\n' \
+                           '| illustration_english = {illustration_english}\n' \
+                           '| illustration_french = {illustration_french}\n' \
+                           '| illustration_german = {illustration_german}\n' \
+                           '| illustration_portuguese = {illustration_portuguese}\n' \
+                           '| illustration_russian = {illustration_russian}\n' \
+                           '| illustration_spanish = {illustration_spanish}\n' \
                            '| card_color = {card_color}\n' \
                            '| card_name = {card_name}\n' \
                            '| card_type = {card_type}\n' \

@@ -1,5 +1,26 @@
-resources/
+# Ignore all downloaded card dumps from https://github.com/abrakam/Faeria_Cards
+
+resources/merlin_shortened.csv
+resources/english_cards/*
+resources/french_cards/*
+resources/german_cards/*
+resources/portuguese_cards/*
+resources/russian_cards/*
+resources/spanish_cards/*
+
+# create empty .keep file in directories to keep empty directories in commit
+
+!resources/english_cards/.keep
+!resources/french_cards/.keep
+!resources/german_cards/.keep
+!resources/portuguese_cards/.keep
+!resources/russian_cards/.keep
+!resources/spanish_cards/.keep
+
 .idea/
 __venv__/
 __pycache__/
-faeriawikibot.config
+
+# Will not commit my username and password
+
+faeriawikibot.conf

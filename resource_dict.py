@@ -1,5 +1,4 @@
 class GithubResource:
-
     @staticmethod
     def get_card_english(id):
         return 'https://raw.githubusercontent.com/abrakam/Faeria_Cards/master/CardExport/English/{0}.png'.format(str(id).zfill(3))
