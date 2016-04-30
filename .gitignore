@@ -2,3 +2,4 @@ resources/
 .idea/
 __venv__/
 __pycache__/
+faeriawikibot.config

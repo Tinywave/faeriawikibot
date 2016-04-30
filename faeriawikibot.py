@@ -70,6 +70,7 @@ if __name__ == '__main__':
 
     gc = gamepedia_client.GamepediaClient()
 
+    gc.login(username=username,password=password)
     #gc.create_action_templates()
     for card in merlincards:
         with urllib.request.urlopen(r.GithubResource.get_card_english(id=card['card_id'])) as resp, open('resources/english_cards/{0}.png'.format(card['card_id']), 'wb') as f:
