@@ -1,26 +1,46 @@
 import mwclient
 
+
 class GamepediaClient:
     mwc = None
 
+    '''
+    Login on creation
+    '''
     def __init__(self, username=None, password=None):
         self.mwc = mwclient.Site('faeria.gamepedia.com', path='/')
         if username is not None and password is not None:
             self.mwc.login(username, password)
-
+    '''
+    Login to edit pages and get attribution
+    '''
     def login(self, username, password):
         self.mwc.login(username, password)
 
+    '''
+    Create action template which later link to tags in the card description.
+    '''
     def create_action_templates(self):
-        actions = [['ranged_attack', 'Ranged'], ['charge','Charge'], ['gift','Gift'], ['production','Production'], ['combat','Combat'], ['protector','Protection'], ['taunt','Taunt'], ['haste','Haste'], ['last_words','Last Words'], ['deathtouch','Deathtouch'], ['aquatic','Aquatic'], ['jump','Jump'], ['flying','Flying'], ['activate','Activate'], ['options','Choose one:'], ['faeria','Faeria']]
+        actions = [['ranged_attack', 'Ranged'], ['charge', 'Charge'], ['gift', 'Gift'], ['production', 'Production'],
+                   ['combat', 'Combat'], ['protector', 'Protection'], ['taunt', 'Taunt'], ['haste', 'Haste'],
+                   ['last_words', 'Last Words'], ['deathtouch', 'Deathtouch'], ['aquatic', 'Aquatic'], ['jump', 'Jump'],
+                   ['flying', 'Flying'], ['activate', 'Activate'], ['options', 'Choose one:'], ['faeria', 'Faeria']]
         for action in actions:
             page = self.mwc.Pages['Template:{0}'.format(action[0])]
             if page.text() == '':
-                page.save('[[' + action[0] + '|' + action[1] + ' {{#if: {{{1|}}}|{{{1|}}} }}]]', summary='Initialized with default configuration')
+                page.save('[[' + action[0] + '|' + action[1] + ' {{#if: {{{1|}}}|{{{1|}}} }}]]',
+                          summary='Initialized with default configuration')
 
+    '''
+    Upload local image to wiki
+    '''
     def upload_images(self, imagename, destination, description):
         self.mwc.upload(open(imagename, 'rb'), destination, description)
 
+    '''
+    Create/Update card on wiki
+    Move conflicting old cards to '/{old card name}_(Historical)'
+    '''
     def submit_card(self, mc, card):
         page = self.mwc.Pages[mc['card_name']]
         text = page.text()
@@ -38,11 +58,16 @@ class GamepediaClient:
         else:
             page.save(card)
 
+    '''
+    Select and replace (=> update) the 'Card stats' template instance
+    '''
     def update_card(self, text, card):
         start, end = self.textregion_selector(text, '{{Card stats', '{', '}')
-        return str(text).replace(text[start:end+1], card)
+        return str(text).replace(text[start:end + 1], card)
 
-
+    '''
+    Select region of the 'Card stats' template which should get replaced with the updated card
+    '''
     @staticmethod
     def textregion_selector(text, starttext, increase, decrease):
         text = str(text)
@@ -57,5 +82,3 @@ class GamepediaClient:
                     return startmarker, x
 
         raise ValueError
-
-

@@ -1,5 +1,6 @@
 import requests
 import urllib.request
+import urllib.error
 import csv
 import resource_dict as r
 import gamepedia_generator as gg
@@ -20,7 +21,6 @@ class Faeriawikibot:
     '''
     Parse csv dump of cards into python dictionaries
     '''
-
     def parse_merlin(self):
         req = requests.get(r.GithubResource.get_merlin_shortened_csv())
         self.merlinlist = []
@@ -62,19 +62,17 @@ class Faeriawikibot:
     '''
     Create new instance of GamepediaClient (required for name attribution)
     '''
-
     def create_gamepedia_client(self, username=None, password=None):
         global cfg_file
         if username is None:
-            username=cfg_file['account']['username']
+            username = cfg_file['account']['username']
         if password is None:
-            password=cfg_file['account']['password']
+            password = cfg_file['account']['password']
         self.gc = gamepedia_client.GamepediaClient(username, password)
 
     '''
     Update all images from all languages
     '''
-
     def update_all_images(self):
         self.update_one_language_images('english', r.GithubResource.get_card_english)
         self.update_one_language_images('french', r.GithubResource.get_card_french)
@@ -86,20 +84,24 @@ class Faeriawikibot:
     '''
     Update all images from one language
     '''
-
     def update_one_language_images(self, language, resource):
         if self.gc is None:
             self.create_gamepedia_client()
         for card in self.merlinlist:
-            with urllib.request.urlopen(resource(id=card['card_id'])) as resp, open('resources/{lang}_cards/{id}.png'.format(lang=language, id=card['card_id']), 'wb') as f:
-                data = resp.read()
-                f.write(data)
-            self.gc.upload_images('resources/{lang}_cards/{id}.png'.format(lang=language,id=card['card_id']), '{lang}_{card_id}.png'.format(lang=language,card_id=card['card_id']), card['card_name'])
+            try:
+                with urllib.request.urlopen(resource(id=card['card_id'])) as resp, open(
+                        'resources/{lang}_cards/{id}.png'.format(lang=language, id=card['card_id']), 'wb') as f:
+                    data = resp.read()
+                    f.write(data)
+                self.gc.upload_images('resources/{lang}_cards/{id}.png'.format(lang=language, id=card['card_id']),
+                                      '{lang}_{card_id}.png'.format(lang=language, card_id=card['card_id']),
+                                      card['card_name'])
+            except urllib.error.HTTPError as e:
+                print('{message}'.format(e.msg))
 
     '''
     Create action templates (Template:Haste, Template:Charge, etc)
     '''
-
     def create_action_templates(self):
         if self.gc is None:
             self.create_gamepedia_client()
@@ -108,17 +110,15 @@ class Faeriawikibot:
     '''
     Update cards
     '''
-
     def update_cards(self):
         if self.gc is None:
             self.create_gamepedia_client()
-        for x in range(0, len(self.merlinlist)-1):
+        for x in range(0, len(self.merlinlist) - 1):
             self.gc.submit_card(self.merlinlist[x], self.cardlist[x])
 
     '''
     Add one '{'/'}' to each '{'/'}' to make gamepedia link to the templates
     '''
-
     @staticmethod
     def change_desc_actions_to_templates(desc):
         return str(desc).replace('{', '{{').replace('}', '}}')
@@ -127,7 +127,6 @@ class Faeriawikibot:
     Extract abilities from card description.
     This is useful for creating associations to the corresponding 'List of cards with X ability/effect'
     '''
-
     @staticmethod
     def extract_abilities(desc):
         actions = [['ranged_attack', 'Ranged'], ['charge', 'Charge'], ['gift', 'Gift'], ['production', 'Production'],
@@ -148,6 +147,7 @@ class Faeriawikibot:
     Change strings to be capitalized.
 
     '''
+
     @staticmethod
     def fix_case(string):
         if string is None:
@@ -167,8 +167,8 @@ class Faeriawikibot:
         else:
             return string
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     global cfg_file
     cfg_file = configparser.ConfigParser()
     path_to_cfg = os.path.abspath(os.path.dirname(sys.argv[0]))
@@ -178,5 +178,5 @@ if __name__ == '__main__':
     fwb = Faeriawikibot()
     fwb.parse_merlin()
     fwb.merlin2cardinfo()
-    #fwb.update_cards()
-    fwb.update_all_images()
+    # fwb.update_cards()
+    # fwb.update_all_images()

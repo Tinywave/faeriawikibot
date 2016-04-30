@@ -1,26 +1,23 @@
 class GamepediaGenerator:
+    # old template
     template_cardinfobox_old = '{{Card infobox| id = {id}\n' \
-                           '| illustration = {illustration}\n' \
-                           '| color = {color}\n' \
-                           '| type = {type}\n' \
-                           '| rarity = {rarity}\n' \
-                           '| gold = {gold}\n' \
-                           '| faeria = {faeria}\n' \
-                           '| land = {land}\n' \
-                           '| power = {power}\n' \
-                           '| life = {life}\n' \
-                           '| desc = {desc}\n' \
-                           '| ability1 = {ability1}\n' \
-                           '| starter = {starter}\n' \
-                           '| deck1 = {deck1}\n' \
-                           '| deckq1 = {deckq1}\n}}'
+                               '| illustration = {illustration}\n' \
+                               '| color = {color}\n' \
+                               '| type = {type}\n' \
+                               '| rarity = {rarity}\n' \
+                               '| gold = {gold}\n' \
+                               '| faeria = {faeria}\n' \
+                               '| land = {land}\n' \
+                               '| power = {power}\n' \
+                               '| life = {life}\n' \
+                               '| desc = {desc}\n' \
+                               '| ability1 = {ability1}\n' \
+                               '| starter = {starter}\n' \
+                               '| deck1 = {deck1}\n' \
+                               '| deckq1 = {deckq1}\n}}'
+    # current template, located on /Template:Card_stats
     template_cardinfobox = '{{Card stats| card_id = {card_id}\n' \
-                           '| illustration_english = {illustration_english}\n' \
-                           '| illustration_french = {illustration_french}\n' \
-                           '| illustration_german = {illustration_german}\n' \
-                           '| illustration_portuguese = {illustration_portuguese}\n' \
-                           '| illustration_russian = {illustration_russian}\n' \
-                           '| illustration_spanish = {illustration_spanish}\n' \
+                           '| illustration = {illustration}\n' \
                            '| card_color = {card_color}\n' \
                            '| card_name = {card_name}\n' \
                            '| card_type = {card_type}\n' \
@@ -41,11 +38,25 @@ class GamepediaGenerator:
                            '| codexcode1 = {codex1}\n' \
                            '| codexcode2 = {codex2}\n' \
                            '| codexcode3= {codex3}\n}}'
-
-    def generate_card_old(self, id='', illustration='', color='', type='', rarity='', gold='', faeria='', land='', power='', life='', desc='', ability1 = '', starter='', deck1='', deckq1 = ''):
-        return '{' + self.template_cardinfobox_old.format(id=id, illustration=illustration, color=color, type=type, rarity=rarity, gold=gold, faeria=faeria, land=land, power=power, life=life, desc=desc, ability1=ability1, starter=starter, deck1=deck1, deckq1=deckq1) + '}'
-
-    def generate_card(self, card_id='', illustration='', card_color='', card_name='', card_type='', rarity='', gold='', faeria='', lake='', mountain='', desert='', forest='', power='', life='', desc='', codex1 = '', codex2='', codex3='', ability1='', ability2='',ability3='', ability4='', ability5=''):
-        return '{' + self.template_cardinfobox.format(card_id=card_id, illustration=illustration, card_color=card_color, card_name=card_name, card_type=card_type, rarity=rarity, gold=gold, faeria=faeria, lake=lake, mountain=mountain, desert=desert, forest=forest, power=power, life=life, desc=desc, codex1=codex1, codex2=codex2, codex3=codex3, ability1=ability1, ability2=ability2, ability3=ability3, ability4=ability4, ability5=ability5) + '}'
-
-
+    '''
+    Create card-string with old template.
+    '''
+    def generate_card_old(self, id='', illustration='', color='', type='', rarity='', gold='', faeria='', land='',
+                          power='', life='', desc='', ability1='', starter='', deck1='', deckq1=''):
+        return '{' + self.template_cardinfobox_old.format(id=id, illustration=illustration, color=color, type=type,
+                                                          rarity=rarity, gold=gold, faeria=faeria, land=land,
+                                                          power=power, life=life, desc=desc, ability1=ability1,
+                                                          starter=starter, deck1=deck1, deckq1=deckq1) + '}'
+    '''
+    Create card-string with current template.
+    '''
+    def generate_card(self, card_id='', illustration='', card_color='', card_name='', card_type='', rarity='', gold='',
+                      faeria='', lake='', mountain='', desert='', forest='', power='', life='', desc='', codex1='',
+                      codex2='', codex3='', ability1='', ability2='', ability3='', ability4='', ability5=''):
+        return '{' + self.template_cardinfobox.format(card_id=card_id, illustration=illustration, card_color=card_color,
+                                                      card_name=card_name, card_type=card_type, rarity=rarity,
+                                                      gold=gold, faeria=faeria, lake=lake, mountain=mountain,
+                                                      desert=desert, forest=forest, power=power, life=life, desc=desc,
+                                                      codex1=codex1, codex2=codex2, codex3=codex3, ability1=ability1,
+                                                      ability2=ability2, ability3=ability3, ability4=ability4,
+                                                      ability5=ability5) + '}'
