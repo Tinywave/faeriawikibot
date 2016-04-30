@@ -1,10 +1,2 @@
-<dpl>
-titleregexp=^[A-Z].*
-category = Rare Cards
-notcategory = Historical content
-uses = Template:Card stats
-include = {Card stats}:illustration, {Card stats}:card_name, {Card stats}:card_color, {Card stats}:card_type, {Card stats}:faeria, {Card stats}:lake, {Card stats}:mountain, {Card stats}:forest, {Card stats}:desert, {Card stats}:power, {Card stats}:life, {Card stats}:rarity, {Card stats}:desc, 
-secseparators = ¦align="center" width="47px"¦[[File:,¦47px]],¶¦width="175px"¦ ²{dpl_name¦,}²,¶¦align="center" width="75px"¦²{dpl_name|,}²,¶¦align="center" width="75px"¦²{dpl_name|,}²,¶¦align="center" width="65px"¦²{Faeria¦,}²,¶¦align="center" width="65px"¦²{dpl_lake¦,}²,¶¦align="center" width="65px"¦²{dpl_mountain¦,}²,¶¦align="center" width="65px"¦²{dpl_forest¦,}²,¶¦align="center" width="65px"¦²{dpl_desert¦,}²,¶¦align="center" width="65px"¦ ²{Pow¦,}²,¶¦align="center" width="65px"¦ ²{Lif¦,}²,¶¦align="center" width="65px"¦²{rarity¦,}²,¶¦width="175px"¦ ²{dpl_display¦,}²,¶¦,
-format = ¶{¦ class="wikitable sortable" style="border: 1px solid #eea31c; width:100%;"¶¦- style=" font-size: 1.1em; height: 2em;"¶! Illu !! Card !! Color !! Type !! Faeria !! Lake !! Mountain !! Forest !! Desert !! Power !! Life !! Rarity !! Description ,¶¦-¶,,¶¦}
-</dpl>
+{{Cardlist|Rare Cards}}
 <noinclude>[[Category:Lists]]</noinclude>

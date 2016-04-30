@@ -109,7 +109,7 @@ class GamepediaPagesRW:
 
         self.upload('setup/List/List_of_Cards', 'List_of_Cards')
         self.upload('setup/List/List_of_Blue_cards', 'List_of_Blue_cards')
-        self.upload('setup/List/List_of_Green_cards', 'List_of_Greem_cards')
+        self.upload('setup/List/List_of_Green_cards', 'List_of_Green_cards')
         self.upload('setup/List/List_of_Red_cards', 'List_of_Red_cards')
         self.upload('setup/List/List_of_Yellow_cards', 'List_of_Yellow_cards')
         self.upload('setup/List/List_of_Human_cards', 'List_of_Human_cards')
@@ -130,7 +130,7 @@ class GamepediaPagesRW:
         self.upload('setup/List/List_of_Production_cards', 'List_of_Production_cards')
         self.upload('setup/List/List_of_Combat_cards', 'List_of_Combat_cards')
         self.upload('setup/List/List_of_Protection_cards', 'List_of_Protection_cards')
-        self.upload('setup/List/List_of_Taunt_cards', 'List_of_Taund_cards')
+        self.upload('setup/List/List_of_Taunt_cards', 'List_of_Taunt_cards')
         self.upload('setup/List/List_of_Haste_cards', 'List_of_Haste_cards')
         self.upload('setup/List/List_of_Last_Words_cards', 'List_of_Last_Words_cards')
         self.upload('setup/List/List_of_Deathtouch_cards', 'List_of_Deathtouch_cards')
