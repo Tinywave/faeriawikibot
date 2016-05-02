@@ -1,8 +1,2 @@
-<dpl>
-  category = Yellow Cards
-  notcategory = Historical content
-  allowcachedresults = true
-  format = <gallery widths=200px heights=342px>\n,Image:%PAGE%.png¦[[%PAGE%]],\n,</gallery>
-</dpl>
-
+{{Cardgallery|Yellow Cards}}
 <noinclude>[[Category:Galleries]]</noinclude>

@@ -42,6 +42,7 @@ class GamepediaPagesRW:
         self.download('setup/Template/Card_stats', 'Template:Card_stats')
         self.download('setup/Template/Cardlist', 'Template:Cardlist')
         self.download('setup/Template/Card_nav', 'Template:Card_nav')
+        self.download('setup/Template/Codexcontentlist', 'Template:Codexcontentlist')
 
         self.download('setup/Lore/The_world', 'The_world')
         self.download('setup/Lore/Factions', 'Factions')
@@ -127,41 +128,11 @@ class GamepediaPagesRW:
     Restore selection of default pages
     '''
     def restore(self):
-        self.upload('setup/Template/Card_stats', 'Template:Card_stats')
-        self.upload('setup/Template/Cardlist', 'Template:Cardlist')
-
-        self.upload('setup/List/List_of_Cards', 'List_of_Cards')
-        self.upload('setup/List/List_of_Blue_cards', 'List_of_Blue_cards')
-        self.upload('setup/List/List_of_Green_cards', 'List_of_Green_cards')
-        self.upload('setup/List/List_of_Red_cards', 'List_of_Red_cards')
-        self.upload('setup/List/List_of_Yellow_cards', 'List_of_Yellow_cards')
-        self.upload('setup/List/List_of_Human_cards', 'List_of_Human_cards')
-    
-        self.upload('setup/List/List_of_Common_cards', 'List_of_Common_cards')
-        self.upload('setup/List/List_of_Rare_cards', 'List_of_Rare_cards')
-        self.upload('setup/List/List_of_Epic_cards', 'List_of_Epic_cards')
-        self.upload('setup/List/List_of_Legendary_cards', 'List_of_Legendary_cards')
-    
-        self.upload('setup/List/List_of_Creature_cards', 'List_of_Creature_cards')
-        self.upload('setup/List/List_of_Structure_cards', 'List_of_Structure_cards')
-        self.upload('setup/List/List_of_Event_cards', 'List_of_Event_Cards')
-    
-        self.upload('setup/List/List_of_Charge_X_cards', 'List_of_Charge_X_cards')
-        self.upload('setup/List/List_of_Faeria_X_cards', 'List_of_Faeria_X_cards')
-        self.upload('setup/List/List_of_Options_cards', 'List_of_Options_cards')
-        self.upload('setup/List/List_of_Ranged_cards', 'List_of_Ranged_cards')
-        self.upload('setup/List/List_of_Production_cards', 'List_of_Production_cards')
-        self.upload('setup/List/List_of_Combat_cards', 'List_of_Combat_cards')
-        self.upload('setup/List/List_of_Protection_cards', 'List_of_Protection_cards')
-        self.upload('setup/List/List_of_Taunt_cards', 'List_of_Taunt_cards')
-        self.upload('setup/List/List_of_Haste_cards', 'List_of_Haste_cards')
-        self.upload('setup/List/List_of_Last_Words_cards', 'List_of_Last_Words_cards')
-        self.upload('setup/List/List_of_Deathtouch_cards', 'List_of_Deathtouch_cards')
-        self.upload('setup/List/List_of_Flying_cards', 'List_of_Flying_cards')
-        self.upload('setup/List/List_of_Jump_cards', 'List_of_Jump_cards')
-        self.upload('setup/List/List_of_Aquatic_cards', 'List_of_Aquatic_cards')
-        self.upload('setup/List/List_of_Activate_cards', 'List_of_Activate_cards')
-        self.upload('setup/List/List_of_Gift_cards', 'List_of_Gift_cards')
+        self.upload('setup/Cards/By Color/Human', 'Human')
+        self.upload('setup/Cards/By Color/Blue', 'Blue')
+        self.upload('setup/Cards/By Color/Green', 'Green')
+        self.upload('setup/Cards/By Color/Red', 'Red')
+        self.upload('setup/Cards/By Color/Yellow', 'Yellow')
 
 if __name__ == '__main__':
     gr = GamepediaPagesRW()
@@ -170,5 +141,5 @@ if __name__ == '__main__':
     path_to_cfg = os.path.abspath(os.path.dirname(sys.argv[0]))
     path_to_cfg = os.path.join(path_to_cfg, 'faeriawikibot.conf')
     cfg_file.read(path_to_cfg)
-    gr.archivate()
+    gr.restore()
 
