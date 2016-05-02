@@ -38,9 +38,10 @@ class GamepediaPagesRW:
     '''
     Archivate selection of pages
     '''
-    def archiveate(self):
+    def archivate(self):
         self.download('setup/Template/Card_stats', 'Template:Card_stats')
         self.download('setup/Template/Cardlist', 'Template:Cardlist')
+        self.download('setup/Template/Card_nav', 'Template:Card_nav')
 
         self.download('setup/Lore/The_world', 'The_world')
         self.download('setup/Lore/Factions', 'Factions')
@@ -69,7 +70,7 @@ class GamepediaPagesRW:
 
         self.download('setup/List/List_of_Cards', 'List_of_Cards')
         self.download('setup/List/List_of_Blue_cards', 'List_of_Blue_cards')
-        self.download('setup/List/List_of_Green_cards', 'List_of_Greem_cards')
+        self.download('setup/List/List_of_Green_cards', 'List_of_Green_cards')
         self.download('setup/List/List_of_Red_cards', 'List_of_Red_cards')
         self.download('setup/List/List_of_Yellow_cards', 'List_of_Yellow_cards')
         self.download('setup/List/List_of_Human_cards', 'List_of_Human_cards')
@@ -99,6 +100,28 @@ class GamepediaPagesRW:
         self.download('setup/List/List_of_Aquatic_cards', 'List_of_Aquatic_cards')
         self.download('setup/List/List_of_Activate_cards', 'List_of_Activate_cards')
         self.download('setup/List/List_of_Gift_cards', 'List_of_Gift_cards')
+
+        self.download('setup/Cards/By Color/Human', 'Human')
+        self.download('setup/Cards/By Color/Blue', 'Blue')
+        self.download('setup/Cards/By Color/Green', 'Green')
+        self.download('setup/Cards/By Color/Red', 'Red')
+        self.download('setup/Cards/By Color/Yellow', 'Yellow')
+
+        self.download('setup/Cards/By Type/Creature', 'Creature')
+        self.download('setup/Cards/By Type/Event', 'Event')
+        self.download('setup/Cards/By Type/Structure', 'Structure')
+
+        self.download('setup/Cards/By Rarity/Common', 'Common')
+        self.download('setup/Cards/By Rarity/Rare', 'Rare')
+        self.download('setup/Cards/By Rarity/Epic', 'Epic')
+        self.download('setup/Cards/By Rarity/Legendary', 'Legendary')
+
+        self.download('setup/Gallery/Gallery_of_Blue_cards', 'Gallery_of_Blue_cards')
+        self.download('setup/Gallery/Gallery_of_Green_cards', 'Gallery_of_Green_cards')
+        self.download('setup/Gallery/Gallery_of_Human_cards', 'Gallery_of_Human_cards')
+        self.download('setup/Gallery/Gallery_of_Red_cards', 'Gallery_of_Red_cards')
+        self.download('setup/Gallery/Gallery_of_Yellow_cards', 'Gallery_of_Yellow_cards')
+
 
     '''
     Restore selection of default pages
@@ -147,5 +170,5 @@ if __name__ == '__main__':
     path_to_cfg = os.path.abspath(os.path.dirname(sys.argv[0]))
     path_to_cfg = os.path.join(path_to_cfg, 'faeriawikibot.conf')
     cfg_file.read(path_to_cfg)
-    gr.restore()
+    gr.archivate()
 

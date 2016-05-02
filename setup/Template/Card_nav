@@ -1,0 +1,28 @@
+{| style="margin: auto; width: 500px;"
+|-
+| width="100%" valign="top" style="border: 1px solid #9e8c7f; padding: 7px;" | {{header|Cards}}
+<div style="padding-top: 6px; padding-left: 1em;">
+{| style="margin: auto; width: 100%;"
+! width="33%" align="left" | By Color:
+! width="33%" align="left" | By Type:
+! width="33%" align="left" | By Rarity:
+|-
+| width="33%" valign="top" | 
+* [[Human]]
+* [[Blue]]
+* [[Green]]
+* [[Red]]
+* [[Yellow]]
+| width="33%" valign="top" | 
+* [[Creature]]
+* [[Structure]]
+* [[Event]]
+| width="33%" valign="top" | 
+* [[Common]]
+* [[Rare]]
+* [[Epic]]
+* [[Legendary]]
+|}
+</div>
+|}
+<noinclude>[[Category:Navigation templates]]</noinclude>

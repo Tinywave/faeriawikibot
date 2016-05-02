@@ -69,13 +69,13 @@
 {{!}} '''codexcode1:'''
 {{!}} {{{codexcode1|}}} }}
 |-
-{{#if: {{{codexcode2|}}}|
-{{!}} '''codexcode2:'''
-{{!}} {{{codexcode2|}}} }}
-|-
 {{#if: {{{codexcode3|}}}|
-{{!}} '''codexcode3:'''
+{{!}} '''Assigned codex id:'''
 {{!}} {{{codexcode3|}}} }}
+|-
+{{#if: {{{codexcode2|}}}|
+{{!}} '''Number of cards in codex:'''
+{{!}} {{{codexcode2|}}} }}
 |}
 |}
 <div style="font-size: 120%;">{{{desc|}}}</div><br>
@@ -126,4 +126,8 @@ Example:
 {{#if: {{{ability3|}}}|[[Category:Cards with {{{ability3|}}} effect]]}}
 {{#if: {{{ability4|}}}|[[Category:Cards with {{{ability4|}}} effect]]}}
 {{#if: {{{ability5|}}}|[[Category:Cards with {{{ability5|}}} effect]]}}
+
+{{#if: {{{codexcode3|}}}|[[Category:Cards in codex {{{codexcode3|}}}]]}}
+
+{{#ifexpr: {{{card_id|}}} > 9990|[[Category:Developer Cards]]}}
 </includeonly>
