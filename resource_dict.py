@@ -62,3 +62,28 @@ class GamepediaResource:
     @property
     def get_spanish_wiki(self):
         return 'faeria-es.gamepedia.com'
+
+
+class DescriptionLinksResource:
+    @staticmethod
+    def get_english_card_link(searchterm):
+        links = {
+            'Imperial Guards': 'Imperial Guard',
+            'Angry Yaks': 'Angry Yak',
+            'Safeguard': 'Safeguard',
+            'Punishment': 'Punishment',
+            'Campfire': 'Campfire',
+            'Mirror Phantasm': 'Mirror Phantasm',
+            'Triton Banquet': 'Triton Banquet',
+            'Frog': 'Frog',
+            'Ruby Fish': 'Ruby Fish',
+            'Frogs': 'Frog',
+            "Khalim's Follower": "Khalim's Follower",
+            'Slaughtering Shadow': 'Slaughtering Shadow',
+            'Demon Wing': 'Demon Wing',
+            'Oblivion Knight': 'Oblivion Knight'
+        }
+        if searchterm in links.keys():
+            return links[searchterm]
+        else:
+            raise ValueError

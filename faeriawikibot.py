@@ -7,7 +7,7 @@ import gamepedia_generator as gg
 import gamepedia_client
 import os, sys
 import configparser
-
+import re
 
 class Faeriawikibot:
     merlinlist = []
@@ -24,8 +24,8 @@ class Faeriawikibot:
     def parse_merlin(self):
         req = requests.get(r.GithubResource.get_merlin_shortened_csv())
         self.merlinlist = []
-        #with open('resources/merlin_shortened.csv', 'w') as f:
-        #    f.write(req.text)
+        with open('resources/merlin_shortened.csv', 'w') as f:
+            f.write(req.text)
         with open('resources/merlin_shortened.csv') as f:
             csvreader = csv.DictReader(f,
                                        fieldnames=['card_id', 'card_color', 'card_name', 'card_type', 'gold', 'faeria',
@@ -34,6 +34,7 @@ class Faeriawikibot:
                                        quotechar='"')
             for row in csvreader:
                 row['rarity'] = self.fix_rarity(row['rarity'])
+                row['desc'] = self.handle_english_description_links(row['desc'])
                 self.merlinlist.append(row)
         return self.merlinlist
 
@@ -118,10 +119,27 @@ class Faeriawikibot:
 
     '''
     Add one '{'/'}' to each '{'/'}' to make gamepedia link to the templates
+    Change <b> </b> to [[ ]]
+    Makes the word random an ability by changing random to {{random}}
     '''
     @staticmethod
     def change_desc_actions_to_templates(desc):
+        desc = str(desc).replace('random', '{random}')
         return str(desc).replace('{', '{{').replace('}', '}}')
+
+    '''
+    Replaces referenced cards in description with actual mediawiki links
+    '''
+    def handle_english_description_links(self, description):
+        resultlist = re.findall('<b>.*?<\/b>',description)
+        for result in resultlist:
+            extract = re.search('<b>(?P<extract>.*?)<\/b>',result).group('extract')
+            try:
+                replacement = r.DescriptionLinksResource.get_english_card_link(extract)
+            except ValueError:
+                continue
+            description = description.replace(result, '[[{link}|{visual}]]'.format(link=replacement, visual=extract))
+        return description
 
     '''
     Extract abilities from card description.
@@ -132,7 +150,7 @@ class Faeriawikibot:
         actions = [['ranged_attack', 'Ranged'], ['charge', 'Charge'], ['gift', 'Gift'], ['production', 'Production'],
                    ['combat', 'Combat'], ['protection', 'Protection'], ['taunt', 'Taunt'], ['haste', 'Haste'],
                    ['last_words', 'Last Words'], ['deathtouch', 'Deathtouch'], ['aquatic', 'Aquatic'], ['jump', 'Jump'],
-                   ['flying', 'Flying'], ['activate', 'Activate'], ['options', 'Choose one:'], ['faeria', 'Faeria']]
+                   ['flying', 'Flying'], ['activate', 'Activate'], ['options', 'Choose one:'], ['faeria', 'Faeria'], ['random', 'random']]
         result = ['', '', '', '', '']
         if len(desc) > 0:
             for action in actions:
