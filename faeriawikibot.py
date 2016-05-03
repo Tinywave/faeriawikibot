@@ -24,8 +24,8 @@ class Faeriawikibot:
     def parse_merlin(self):
         req = requests.get(r.GithubResource.get_merlin_shortened_csv())
         self.merlinlist = []
-        with open('resources/merlin_shortened.csv', 'w') as f:
-            f.write(req.text)
+        #with open('resources/merlin_shortened.csv', 'w') as f:
+        #    f.write(req.text)
         with open('resources/merlin_shortened.csv') as f:
             csvreader = csv.DictReader(f,
                                        fieldnames=['card_id', 'card_color', 'card_name', 'card_type', 'gold', 'faeria',
@@ -181,5 +181,5 @@ if __name__ == '__main__':
     fwb = Faeriawikibot()
     fwb.parse_merlin()
     fwb.merlin2cardinfo()
-    # fwb.update_cards()
+    fwb.update_cards()
     # fwb.update_all_images()
