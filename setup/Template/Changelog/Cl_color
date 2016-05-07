@@ -1,0 +1,18 @@
+<includeonly>The color/faction of the card changed from "{{{1|}}}" to "{{{2|}}}".</includeonly><noinclude>
+Syntax:
+<pre>
+{{cl_color|old value|new value}}
+</pre>
+
+Usage:
+<pre>
+{{cl_color|Human|Red}}
+</pre>
+
+Output:
+<pre>
+The color/faction of the card changed from "Human" to "Red".
+</pre>
+
+[[Category:Changelog Templates]]
+</noinclude>

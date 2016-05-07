@@ -1,0 +1,18 @@
+<includeonly>The codexcode1 changed from "{{{1|}}}" to "{{{2|}}}".</includeonly><noinclude>
+Syntax:
+<pre>
+{{cl_codexcode1|old value|new value}}
+</pre>
+
+Usage:
+<pre>
+{{cl_codexcode1|0|100}}
+</pre>
+
+Output:
+<pre>
+The codexcode1 changed from "0" to "100".
+</pre>
+
+[[Category:Changelog Templates]]
+</noinclude>

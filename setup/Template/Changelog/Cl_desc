@@ -1,0 +1,18 @@
+<includeonly>The description of the card changed from "{{{1|}}}" to "{{{2|}}}".</includeonly><noinclude>
+Syntax:
+<pre>
+{{cl_desc|old value|new value}}
+</pre>
+
+Usage:
+<pre>
+{{cl_desc|When a friendly creature gains Attack, gain {{faeria|5}}|When an enemy creature gains Attack, gain {{faeria|5}} }}
+</pre>
+
+Output:
+<pre>
+The description of the card changed from "When a friendly creature gains Attack, gain {{faeria|5}}" to "When an enemy creature gains Attack, gain {{faeria|5}}".
+</pre>
+
+[[Category:Changelog Templates]]
+</noinclude>

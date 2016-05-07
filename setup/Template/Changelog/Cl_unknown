@@ -1,0 +1,18 @@
+<includeonly>An unknown attribute of the card changed from "{{{1|}}}" to "{{{2|}}}".</includeonly><noinclude>
+Syntax:
+<pre>
+{{cl_unknown|old value|new value}}
+</pre>
+
+Usage:
+<pre>
+{{cl_unknown|42|43}}
+</pre>
+
+Output:
+<pre>
+An unknown attribute of the card changed from "42" to "43"
+</pre>
+
+[[Category:Changelog Templates]]
+</noinclude>

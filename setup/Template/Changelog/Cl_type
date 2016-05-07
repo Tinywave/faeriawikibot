@@ -1,0 +1,18 @@
+<includeonly>The type of the card changed from "{{{1|}}}" to "{{{2|}}}".</includeonly><noinclude>
+Syntax:
+<pre>
+{{cl_type|old value|new value}}
+</pre>
+
+Usage:
+<pre>
+{{cl_type|Creature|Structure}}
+</pre>
+
+Output:
+<pre>
+The type of the card changed from "Creature" to "Structure"
+</pre>
+
+[[Category:Changelog Templates]]
+</noinclude>

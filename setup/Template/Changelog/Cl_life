@@ -1,0 +1,18 @@
+<includeonly>The life of the card changed from "{{{1|}}}" to "{{{2|}}}".</includeonly><noinclude>
+Syntax:
+<pre>
+{{cl_life|old value|new value}}
+</pre>
+
+Usage:
+<pre>
+{{cl_life|3|1}}
+</pre>
+
+Output:
+<pre>
+The life of the card changed from "3" to "1"
+</pre>
+
+[[Category:Changelog Templates]]
+</noinclude>

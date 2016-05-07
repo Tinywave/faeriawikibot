@@ -1,0 +1,18 @@
+<includeonly>The attack power of the card changed from "{{{1|}}}" to "{{{2|}}}".</includeonly><noinclude>
+Syntax:
+<pre>
+{{cl_power|old value|new value}}
+</pre>
+
+Usage:
+<pre>
+{{cl_power|1|4}}
+</pre>
+
+Output:
+<pre>
+The attack power of the card changed from "1" to "4"
+</pre>
+
+[[Category:Changelog Templates]]
+</noinclude>

@@ -1,0 +1,18 @@
+<includeonly>The mountain requirements of the card changed from "{{{1|}}}" to "{{{2|}}}".</includeonly><noinclude>
+Syntax:
+<pre>
+{{cl_mountain|old value|new value}}
+</pre>
+
+Usage:
+<pre>
+{{cl_mountain|1|3}}
+</pre>
+
+Output:
+<pre>
+The mountain requirements of the card changed from "1" to "3"
+</pre>
+
+[[Category:Changelog Templates]]
+</noinclude>

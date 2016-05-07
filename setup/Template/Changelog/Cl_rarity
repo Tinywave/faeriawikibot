@@ -1,0 +1,18 @@
+<includeonly>The rarity of the card changed from "{{{1|}}}" to "{{{2|}}}".</includeonly><noinclude>
+Syntax:
+<pre>
+{{cl_rarity|old value|new value}}
+</pre>
+
+Usage:
+<pre>
+{{cl_rarity|Common|Legendary}}
+</pre>
+
+Output:
+<pre>
+The rarity of the card changed from "Common" to "Legendary".
+</pre>
+
+[[Category:Changelog Templates]]
+</noinclude>

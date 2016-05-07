@@ -1,0 +1,18 @@
+<includeonly>The assigned codex id changed from "{{{1|}}}" to "{{{2|}}}".</includeonly><noinclude>
+Syntax:
+<pre>
+{{cl_codexcode3|old value|new value}}
+</pre>
+
+Usage:
+<pre>
+{{cl_codexcode3|100016|100666}}
+</pre>
+
+Output:
+<pre>
+The assigned codex id changed from "100016" to "100666".
+</pre>
+
+[[Category:Changelog Templates]]
+</noinclude>

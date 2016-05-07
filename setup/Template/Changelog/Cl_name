@@ -1,0 +1,18 @@
+<includeonly>The name of the card changed from "{{{1|}}}" to "{{{2|}}}".</includeonly><noinclude>
+Syntax:
+<pre>
+{{cl_name|old value|new value}}
+</pre>
+
+Usage:
+<pre>
+{{cl_name|Farm Boy|Farm Girl}}
+</pre>
+
+Output:
+<pre>
+The name of the card changed from "Farm Boy" to "Farm Girl".
+</pre>
+
+[[Category:Changelog Templates]]
+</noinclude>

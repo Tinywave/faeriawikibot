@@ -35,6 +35,7 @@ class Faeriawikibot:
             for row in csvreader:
                 row['rarity'] = self.fix_rarity(row['rarity'])
                 row['desc'] = self.handle_english_description_links(row['desc'])
+                row = self.handle_unupdated_cards(row)
                 self.merlinlist.append(row)
         return self.merlinlist
 
@@ -59,6 +60,18 @@ class Faeriawikibot:
             self.cardlist.append(card)
             print(card)
         return self.cardlist
+
+    def handle_unupdated_cards(self, card):
+        if card['card_id'] == '295':
+            card['life'] = 2
+            card['power'] = 2
+            card['desc'] = '{charge|2} Gain +2/+2 each time you attack a god while in your deck or hand.'
+        if card['card_id'] == '331':
+            card['card_name'] = 'Wisdom (Special)'
+        if card['card_id'] == '320':
+            card['card_name'] = 'Twinsoul Spirit (Special)'
+        return card
+
 
     '''
     Create new instance of GamepediaClient (required for name attribution)

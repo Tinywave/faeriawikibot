@@ -1,0 +1,18 @@
+<includeonly>The number of cards in the assigned codex changed from "{{{1|}}}" to "{{{2|}}}".</includeonly><noinclude>
+Syntax:
+<pre>
+{{cl_codexcode2|old value|new value}}
+</pre>
+
+Usage:
+<pre>
+{{cl_codexcode2|2|3}}
+</pre>
+
+Output:
+<pre>
+The number of cards in the assigned codex changed from "2" to "3".
+</pre>
+
+[[Category:Changelog Templates]]
+</noinclude>

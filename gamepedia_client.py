@@ -100,47 +100,44 @@ class GamepediaClient:
                         changelog += self.generate_changelogitem(key, olddict[key], newdict[key])
                 except KeyError:
                     pass
-            #return str(text).replace(oldtext, card).replace(
-             #   '{{empty|DO NOT REMOVE OR EDIT THIS OTHERWISE CHANGELOG UPDATE BREAKS}}', changelog)
+            return str(text).replace(oldtext, card).replace(
+               '{{empty|DO NOT REMOVE OR EDIT THIS OTHERWISE CHANGELOG UPDATE BREAKS}}', changelog)
         return str(text).replace(oldtext, card)
 
     def generate_changelogitem(self, key, oldvalue, newvalue):
         changelogitem = '* {key} changed from "{old}" to "{new}"\n'
         if key == 'card_color':
-            changelogitem = changelogitem.format(key='The color/faction of the card', old=oldvalue, new=newvalue)
+            return '* {{cl_color|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'card_name':
-            changelogitem = changelogitem.format(key='The name of the card', old=oldvalue, new=newvalue)
+            return '* {{cl_name|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'card_type':
-            changelogitem = changelogitem.format(key='The type of the card', old=oldvalue, new=newvalue)
+            return '* {{cl_type|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'rarity':
-            changelogitem = changelogitem.format(key='The rarity of the card', old=oldvalue, new=newvalue)
+            return '* {{cl_rarity|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'faeria':
-            changelogitem = changelogitem.format(key='The faeria cost of the card', old=oldvalue, new=newvalue)
+            return '* {{cl_faeria|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'lake':
-            changelogitem = changelogitem.format(key='The lake requirements of the card', old=oldvalue, new=newvalue)
+            return '* {{cl_lake|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'desert':
-            changelogitem = changelogitem.format(key='The desert requirements of the card', old=oldvalue, new=newvalue)
+            return '* {{cl_desert|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'mountain':
-            changelogitem = changelogitem.format(key='The mountain requirements of the card', old=oldvalue,
-                                                 new=newvalue)
+            return '* {{cl_mountain|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'forest':
-            changelogitem = changelogitem.format(key='The forest requirements of the card', old=oldvalue, new=newvalue)
+            return '* {{cl_forest|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'power':
-            changelogitem = changelogitem.format(key='The attack power of the card', old=oldvalue, new=newvalue)
+            return '* {{cl_power|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'life':
-            changelogitem = changelogitem.format(key='The life of the card', old=oldvalue, new=newvalue)
+            return '* {{cl_life|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'desc':
-            changelogitem = changelogitem.format(key='The description of the card', old=oldvalue, new=newvalue)
+            return '* {{cl_desc|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'codexcode1':
-            changelogitem = changelogitem.format(key='The codexcode1', old=oldvalue, new=newvalue)
+            return '* {{cl_codexcode1|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'codexcode2':
-            changelogitem = changelogitem.format(key='The number of cards in the assigned codex', old=oldvalue,
-                                                 new=newvalue)
+            return '* {{cl_codexcode2|' + oldvalue + '|' + newvalue + '}}'
         elif key == 'codexcode3':
-            changelogitem = changelogitem.format(key='The assigned codex id', old=oldvalue, new=newvalue)
+            return '* {{cl_codexcode3|' + oldvalue + '|' + newvalue + '}}'
         elif key not in ['ability1', 'ability2', 'ability3', 'ability4', 'ability5', 'illustration']:
-            changelogitem = changelogitem.format(key='An unknown attribute of the card', old=oldvalue, new=newvalue)
-        return changelogitem
+            return '* {{cl_unknown|' + oldvalue + '|' + newvalue + '}}'
 
     def card2dict(self, card):
         cardsplit = card.split('\n')
