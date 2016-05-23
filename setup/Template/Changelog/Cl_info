@@ -1,0 +1,18 @@
+<includeonly>Info: {{{1|}}}</includeonly><noinclude>
+Syntax:
+<pre>
+{{cl_info|information}}
+</pre>
+
+Usage:
+<pre>
+{{cl_info|Can no longer target or damage structures or Orbs.}}
+</pre>
+
+Output:
+<pre>
+Info: Can no longer target or damage structures or Orbs.
+</pre>
+
+[[Category:Changelog Templates]]
+</noinclude>

@@ -56,7 +56,14 @@ class GamepediaClient:
     '''
 
     def upload_images(self, imagename, destination, description):
-        self.mwc.upload(open(imagename, 'rb'), destination, description)
+        self.mwc.upload(file=open(imagename, 'rb'), filename=destination, description=description, ignore=True)
+
+    '''
+    Upload remote image to wiki
+    '''
+
+    def upload_remote_image(self, url, destination, description):
+        self.mwc.upload(url=url, filename=destination, description=description)
 
     '''
     Create/Update card on wiki
@@ -100,44 +107,53 @@ class GamepediaClient:
                         changelog += self.generate_changelogitem(key, olddict[key], newdict[key])
                 except KeyError:
                     pass
+            print('******************')
+            print(olddict['card_name'])
+            print(changelog)
             return str(text).replace(oldtext, card).replace(
                '{{empty|DO NOT REMOVE OR EDIT THIS OTHERWISE CHANGELOG UPDATE BREAKS}}', changelog)
         return str(text).replace(oldtext, card)
 
     def generate_changelogitem(self, key, oldvalue, newvalue):
+        if oldvalue is None:
+            oldvalue = ''
+        if newvalue is None:
+            newvalue = ''
         changelogitem = '* {key} changed from "{old}" to "{new}"\n'
         if key == 'card_color':
-            return '* {{cl_color|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_color|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'card_name':
-            return '* {{cl_name|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_name|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'card_type':
-            return '* {{cl_type|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_type|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'rarity':
-            return '* {{cl_rarity|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_rarity|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'faeria':
-            return '* {{cl_faeria|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_faeria|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'lake':
-            return '* {{cl_lake|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_lake|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'desert':
-            return '* {{cl_desert|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_desert|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'mountain':
-            return '* {{cl_mountain|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_mountain|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'forest':
-            return '* {{cl_forest|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_forest|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'power':
-            return '* {{cl_power|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_power|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'life':
-            return '* {{cl_life|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_life|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'desc':
-            return '* {{cl_desc|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_desc|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'codexcode1':
-            return '* {{cl_codexcode1|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_codexcode1|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'codexcode2':
-            return '* {{cl_codexcode2|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_codexcode2|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'codexcode3':
-            return '* {{cl_codexcode3|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_codexcode3|' + oldvalue + '|' + newvalue + '}}\n'
         elif key not in ['ability1', 'ability2', 'ability3', 'ability4', 'ability5', 'illustration']:
-            return '* {{cl_unknown|' + oldvalue + '|' + newvalue + '}}'
+            return '* {{cl_unknown|' + oldvalue + '|' + newvalue + '}}\n'
+        else:
+            return ''
 
     def card2dict(self, card):
         cardsplit = card.split('\n')

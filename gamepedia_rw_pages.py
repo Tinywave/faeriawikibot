@@ -35,6 +35,13 @@ class GamepediaPagesRW:
         with open(path, 'r') as f:
             res = f.read()
         self.gc.write(page, res)
+
+    '''
+    Backup selection of pages
+    '''
+    def backup(self):
+        self.backup_galleries_cards()
+
     '''
     Archivate selection of pages
     '''
@@ -128,11 +135,113 @@ class GamepediaPagesRW:
     Restore selection of default pages
     '''
     def restore(self):
+        self.restore_cards_by()
+        self.restore_galleries_cards()
+
+    '''
+    Restore Cards By-X
+    '''
+    def restore_cards_by(self):
         self.upload('setup/Cards/By Color/Human', 'Human')
         self.upload('setup/Cards/By Color/Blue', 'Blue')
         self.upload('setup/Cards/By Color/Green', 'Green')
         self.upload('setup/Cards/By Color/Red', 'Red')
         self.upload('setup/Cards/By Color/Yellow', 'Yellow')
+
+        self.upload('setup/Cards/By Type/Creature', 'Creature')
+        self.upload('setup/Cards/By Type/Event', 'Event')
+        self.upload('setup/Cards/By Type/Structure', 'Structure')
+
+        self.upload('setup/Cards/By Rarity/Common', 'Common')
+        self.upload('setup/Cards/By Rarity/Rare', 'Rare')
+        self.upload('setup/Cards/By Rarity/Epic', 'Epic')
+        self.upload('setup/Cards/By Rarity/Legendary', 'Legendary')
+
+    '''
+    Restore Changelog Templates
+    '''
+    def restore_templates_changelog(self):
+        self.upload('setup/Template/Changelog/Cl_codexcode1', 'Template:Cl_codexcode1')
+        self.upload('setup/Template/Changelog/Cl_codexcode2', 'Template:Cl_codexcode2')
+        self.upload('setup/Template/Changelog/Cl_codexcode3', 'Template:Cl_codexcode3')
+        self.upload('setup/Template/Changelog/Cl_color', 'Template:Cl_color')
+        self.upload('setup/Template/Changelog/Cl_desc', 'Template:Cl_desc')
+        self.upload('setup/Template/Changelog/Cl_desert', 'Template:Cl_desert')
+        self.upload('setup/Template/Changelog/Cl_faeria', 'Template:Cl_faeria')
+        self.upload('setup/Template/Changelog/Cl_forest', 'Template:Cl_forest')
+        self.upload('setup/Template/Changelog/Cl_lake', 'Template:Cl_lake')
+        self.upload('setup/Template/Changelog/Cl_life', 'Template:Cl_life')
+        self.upload('setup/Template/Changelog/Cl_mountain', 'Template:Cl_mountain')
+        self.upload('setup/Template/Changelog/Cl_name', 'Template:Cl_name')
+        self.upload('setup/Template/Changelog/Cl_power', 'Template:Cl_power')
+        self.upload('setup/Template/Changelog/Cl_rarity', 'Template:Cl_rarity')
+        self.upload('setup/Template/Changelog/Cl_type', 'Template:Cl_type')
+        self.upload('setup/Template/Changelog/Cl_unknown', 'Template:Cl_unknown')
+        self.upload('setup/Template/Changelog/Cl_info', 'Template:Cl_info')
+
+    '''
+    Restore Card Galleries
+    '''
+    def restore_galleries_cards(self):
+        self.upload('setup/Gallery/Gallery_of_Blue_cards', 'Gallery_of_Blue_cards')
+        self.upload('setup/Gallery/Gallery_of_Green_cards', 'Gallery_of_Green_cards')
+        self.upload('setup/Gallery/Gallery_of_Human_cards', 'Gallery_of_Human_cards')
+        self.upload('setup/Gallery/Gallery_of_Red_cards', 'Gallery_of_Red_cards')
+        self.upload('setup/Gallery/Gallery_of_Yellow_cards', 'Gallery_of_Yellow_cards')
+
+        self.upload('setup/Gallery/Gallery_of_Creature_cards', 'Gallery_of_Creature_cards')
+        self.upload('setup/Gallery/Gallery_of_Structure_cards', 'Gallery_of_Structure_cards')
+        self.upload('setup/Gallery/Gallery_of_Event_cards', 'Gallery_of_Event_cards')
+
+        self.upload('setup/Gallery/Gallery_of_Common_cards', 'Gallery_of_Common_cards')
+        self.upload('setup/Gallery/Gallery_of_Rare_cards', 'Gallery_of_Rare_cards')
+        self.upload('setup/Gallery/Gallery_of_Epic_cards', 'Gallery_of_Epic_cards')
+        self.upload('setup/Gallery/Gallery_of_Legendary_cards', 'Gallery_of_Legendary_cards')
+
+    '''
+    Restore Lists of (effect) cards
+    '''
+    def restore_lists_effects(self):
+        self.download('setup/List/List_of_Charge_X_cards', 'List_of_Charge_X_cards')
+        self.download('setup/List/List_of_Faeria_X_cards', 'List_of_Faeria_X_cards')
+        self.download('setup/List/List_of_Options_cards', 'List_of_Options_cards')
+        self.download('setup/List/List_of_Ranged_cards', 'List_of_Ranged_cards')
+        self.download('setup/List/List_of_Production_cards', 'List_of_Production_cards')
+        self.download('setup/List/List_of_Combat_cards', 'List_of_Combat_cards')
+        self.download('setup/List/List_of_Protection_cards', 'List_of_Protection_cards')
+        self.download('setup/List/List_of_Taunt_cards', 'List_of_Taund_cards')
+        self.download('setup/List/List_of_Haste_cards', 'List_of_Haste_cards')
+        self.download('setup/List/List_of_Last_Words_cards', 'List_of_Last_Words_cards')
+        self.download('setup/List/List_of_Deathtouch_cards', 'List_of_Deathtouch_cards')
+        self.download('setup/List/List_of_Flying_cards', 'List_of_Flying_cards')
+        self.download('setup/List/List_of_Jump_cards', 'List_of_Jump_cards')
+        self.download('setup/List/List_of_Aquatic_cards', 'List_of_Aquatic_cards')
+        self.download('setup/List/List_of_Activate_cards', 'List_of_Activate_cards')
+        self.download('setup/List/List_of_Gift_cards', 'List_of_Gift_cards')
+        self.download('setup/List/List_of_Random_cards', 'List_of_Random_cards')
+
+        '''
+    Restore Card Galleries
+    '''
+
+    '''
+    Backup Card Galleries
+    '''
+    def backup_galleries_cards(self):
+        self.download('setup/Gallery/Gallery_of_Blue_cards', 'Gallery_of_Blue_cards')
+        self.download('setup/Gallery/Gallery_of_Green_cards', 'Gallery_of_Green_cards')
+        self.download('setup/Gallery/Gallery_of_Human_cards', 'Gallery_of_Human_cards')
+        self.download('setup/Gallery/Gallery_of_Red_cards', 'Gallery_of_Red_cards')
+        self.download('setup/Gallery/Gallery_of_Yellow_cards', 'Gallery_of_Yellow_cards')
+
+        self.download('setup/Gallery/Gallery_of_Creature_cards', 'Gallery_of_Creature_cards')
+        self.download('setup/Gallery/Gallery_of_Structure_cards', 'Gallery_of_Structure_cards')
+        self.download('setup/Gallery/Gallery_of_Event_cards', 'Gallery_of_Event_cards')
+
+        self.download('setup/Gallery/Gallery_of_Common_cards', 'Gallery_of_Common_cards')
+        self.download('setup/Gallery/Gallery_of_Rare_cards', 'Gallery_of_Rare_cards')
+        self.download('setup/Gallery/Gallery_of_Epic_cards', 'Gallery_of_Epic_cards')
+        self.download('setup/Gallery/Gallery_of_Legendary_cards', 'Gallery_of_Legendary_cards')
 
 if __name__ == '__main__':
     gr = GamepediaPagesRW()

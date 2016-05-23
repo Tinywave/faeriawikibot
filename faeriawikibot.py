@@ -89,11 +89,11 @@ class Faeriawikibot:
     '''
     def update_all_images(self):
         self.update_one_language_images('english', r.GithubResource.get_card_english)
-        self.update_one_language_images('french', r.GithubResource.get_card_french)
-        self.update_one_language_images('german', r.GithubResource.get_card_german)
-        self.update_one_language_images('portuguese', r.GithubResource.get_card_portuguese)
-        self.update_one_language_images('russian', r.GithubResource.get_card_russian)
-        self.update_one_language_images('spanish', r.GithubResource.get_card_spanish)
+        #self.update_one_language_images('french', r.GithubResource.get_card_french)
+        #self.update_one_language_images('german', r.GithubResource.get_card_german)
+        #self.update_one_language_images('portuguese', r.GithubResource.get_card_portuguese)
+        #self.update_one_language_images('russian', r.GithubResource.get_card_russian)
+        #self.update_one_language_images('spanish', r.GithubResource.get_card_spanish)
 
     '''
     Update all images from one language
@@ -212,5 +212,5 @@ if __name__ == '__main__':
     fwb = Faeriawikibot()
     fwb.parse_merlin()
     fwb.merlin2cardinfo()
-    fwb.update_cards()
-    # fwb.update_all_images()
+    #fwb.update_cards()
+    fwb.update_all_images()
