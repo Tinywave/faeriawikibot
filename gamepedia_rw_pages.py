@@ -1,5 +1,7 @@
-import os, sys
 import configparser
+import os
+import sys
+
 import gamepedia_client
 
 
@@ -129,7 +131,6 @@ class GamepediaPagesRW:
         self.download('setup/Gallery/Gallery_of_Human_cards', 'Gallery_of_Human_cards')
         self.download('setup/Gallery/Gallery_of_Red_cards', 'Gallery_of_Red_cards')
         self.download('setup/Gallery/Gallery_of_Yellow_cards', 'Gallery_of_Yellow_cards')
-
 
     '''
     Restore selection of default pages

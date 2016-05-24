@@ -1,4 +1,5 @@
 import mwclient
+import hashlib
 
 
 class GamepediaClient:
@@ -39,8 +40,21 @@ class GamepediaClient:
     Upload local image to wiki
     '''
 
-    def upload_images(self, imagename, destination, description):
+    def upload_images(self, imagename, destination, description, onlyupdate):
+        if onlyupdate:
+            img = self.mwc.Images[destination]
+            if img.exists:
+                sha1 = hashlib.sha1()
+                sha1sum = ''
+                with open(imagename, 'rb') as f:
+                    sha1.update(f.read())
+                    sha1sum = sha1.hexdigest()
+                if img.imageinfo['sha1'] == sha1sum:
+                    return
         self.mwc.upload(file=open(imagename, 'rb'), filename=destination, description=description, ignore=True)
+
+
+
 
     '''
     Upload remote image to wiki

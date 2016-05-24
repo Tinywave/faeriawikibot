@@ -1,14 +1,18 @@
-import requests
-import urllib.request
-import urllib.error
-import csv
-import resource_dict as r
-import gamepedia_generator as gg
-import gamepedia_client
-import os, sys
 import configparser
-import re
+import csv
 import datetime
+import os
+import re
+import sys
+import urllib.error
+import urllib.request
+
+import requests
+
+import gamepedia_client
+import gamepedia_generator as gg
+import resource_dict as r
+
 
 class Faeriawikibot:
     merlinlist = []
@@ -40,6 +44,9 @@ class Faeriawikibot:
                 self.merlinlist.append(row)
         return self.merlinlist
 
+    '''
+    Convert dictionary to card-template string
+    '''
     def merlin2cardinfo(self, merlinlist=''):
         if merlinlist == '':
             merlinlist = self.merlinlist
@@ -59,19 +66,24 @@ class Faeriawikibot:
                                       ability2=abilitylist[1], ability3=abilitylist[2], ability4=abilitylist[3],
                                       ability5=abilitylist[4])
             self.cardlist.append(card)
-            print(card)
         return self.cardlist
 
-    def handle_unupdated_cards(self, card):
+    '''
+    Modify special cards to avoid name collision for cards which are played by AI (some have some special effects
+    which are not available to the normal player)
+
+    Can also be used to update single cards if the card dump is not updated.
+    '''
+    @staticmethod
+    def handle_unupdated_cards(card):
         if card['card_id'] == '331':
             card['card_name'] = 'Wisdom (Special)'
         if card['card_id'] == '320':
             card['card_name'] = 'Twinsoul Spirit (Special)'
         return card
 
-
     '''
-    Create new instance of GamepediaClient (required for name attribution)
+    Create new instance of GamepediaClient (required for name attribution and editing permissions)
     '''
     def create_gamepedia_client(self, username=None, password=None):
         global cfg_file
@@ -86,11 +98,11 @@ class Faeriawikibot:
     '''
     def update_all_images(self):
         self.update_one_language_images('english', r.GithubResource.get_card_english)
-        #self.update_one_language_images('french', r.GithubResource.get_card_french)
-        #self.update_one_language_images('german', r.GithubResource.get_card_german)
-        #self.update_one_language_images('portuguese', r.GithubResource.get_card_portuguese)
-        #self.update_one_language_images('russian', r.GithubResource.get_card_russian)
-        #self.update_one_language_images('spanish', r.GithubResource.get_card_spanish)
+        # self.update_one_language_images('french', r.GithubResource.get_card_french)
+        # self.update_one_language_images('german', r.GithubResource.get_card_german)
+        # self.update_one_language_images('portuguese', r.GithubResource.get_card_portuguese)
+        # self.update_one_language_images('russian', r.GithubResource.get_card_russian)
+        # self.update_one_language_images('spanish', r.GithubResource.get_card_spanish)
 
     '''
     Update all images from one language
@@ -106,7 +118,7 @@ class Faeriawikibot:
                     f.write(data)
                 self.gc.upload_images('resources/{lang}_cards/{id}.png'.format(lang=language, id=card['card_id']),
                                       '{lang}_{card_id}.png'.format(lang=language, card_id=card['card_id']),
-                                      card['card_name'])
+                                      card['card_name'], True)
             except urllib.error.HTTPError as e:
                 print('{message}'.format(e.msg))
 
@@ -119,7 +131,8 @@ class Faeriawikibot:
         actions = [['ranged_attack', 'Ranged'], ['charge', 'Charge'], ['gift', 'Gift'], ['production', 'Production'],
                    ['combat', 'Combat'], ['protector', 'Protection'], ['taunt', 'Taunt'], ['haste', 'Haste'],
                    ['last_words', 'Last Words'], ['deathtouch', 'Deathtouch'], ['aquatic', 'Aquatic'], ['jump', 'Jump'],
-                   ['flying', 'Flying'], ['activate', 'Activate'], ['options', 'Choose one:'], ['faeria', 'Faeria'], ['random', 'random']]
+                   ['flying', 'Flying'], ['activate', 'Activate'], ['options', 'Choose one:'], ['faeria', 'Faeria'],
+                   ['random', 'random']]
         for action in actions:
             page = self.gc.read('Template:{0}'.format(action[0]))
             if page.text() == '':
@@ -147,7 +160,7 @@ class Faeriawikibot:
                 try:
                     uc = self.update_card(text, card)
                     page.save(uc)
-                except ValueError as e:
+                except ValueError:
                     print('ValueError on \n{text}'.format(text=text))
             else:
                 page.save(card)
@@ -155,10 +168,10 @@ class Faeriawikibot:
     '''
     Select and replace (=> update) the 'Card stats' template instance
     '''
-
     def update_card(self, text, card):
         if '== Changelog ==' not in text:
-            text += '\n\n== Changelog ==\n{{changelog\n|height = 200\n|content = {{empty|DO NOT REMOVE OR EDIT THIS OTHERWISE CHANGELOG UPDATE BREAKS}}\n}}'
+            text += '\n\n== Changelog ==\n{{changelog\n|height = 200\n|content = {{empty|DO NOT REMOVE OR EDIT THIS \
+                    OTHERWISE CHANGELOG UPDATE BREAKS}}\n}}'
         start, end = self.textregion_selector(text, '{{Card stats', '{', '}')
         oldtext = text[start:end + 1]
         olddict = self.card2dict(oldtext)
@@ -176,15 +189,19 @@ class Faeriawikibot:
             print(olddict['card_name'])
             print(changelog)
             return str(text).replace(oldtext, card).replace(
-               '{{empty|DO NOT REMOVE OR EDIT THIS OTHERWISE CHANGELOG UPDATE BREAKS}}', changelog)
+                '{{empty|DO NOT REMOVE OR EDIT THIS OTHERWISE CHANGELOG UPDATE BREAKS}}', changelog)
         return str(text).replace(oldtext, card)
 
-    def generate_changelogitem(self, key, oldvalue, newvalue):
+    '''
+    Generate changelog text based on attribute name
+    '''
+    @staticmethod
+    def generate_changelogitem(key, oldvalue, newvalue):
         if oldvalue is None:
             oldvalue = ''
         if newvalue is None:
             newvalue = ''
-        changelogitem = '* {key} changed from "{old}" to "{new}"\n'
+        # changelogitem = '* {key} changed from "{old}" to "{new}"\n'
         if key == 'card_color':
             return '* {{cl_color|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'card_name':
@@ -220,7 +237,11 @@ class Faeriawikibot:
         else:
             return ''
 
-    def card2dict(self, card):
+    '''
+    Converts a card from card-template form to dictionary
+    '''
+    @staticmethod
+    def card2dict(card):
         cardsplit = card.split('\n')
         carddict = {}
         for line in cardsplit:
@@ -237,7 +258,6 @@ class Faeriawikibot:
     '''
     Select region of the 'Card stats' template which should get replaced with the updated card
     '''
-
     @staticmethod
     def textregion_selector(text, starttext, increase, decrease):
         text = str(text)
@@ -267,10 +287,10 @@ class Faeriawikibot:
     Replaces referenced cards in description with actual mediawiki links
     '''
     @staticmethod
-    def handle_english_description_links(self, description):
-        resultlist = re.findall('<b>.*?<\/b>',description)
+    def handle_english_description_links(description):
+        resultlist = re.findall('<b>.*?</b>', description)
         for result in resultlist:
-            extract = re.search('<b>(?P<extract>.*?)<\/b>',result).group('extract')
+            extract = re.search('<b>(?P<extract>.*?)</b>', result).group('extract')
             try:
                 replacement = r.DescriptionLinksResource.get_english_card_link(extract)
             except ValueError:
@@ -287,7 +307,8 @@ class Faeriawikibot:
         actions = [['ranged_attack', 'Ranged'], ['charge', 'Charge'], ['gift', 'Gift'], ['production', 'Production'],
                    ['combat', 'Combat'], ['protection', 'Protection'], ['taunt', 'Taunt'], ['haste', 'Haste'],
                    ['last_words', 'Last Words'], ['deathtouch', 'Deathtouch'], ['aquatic', 'Aquatic'], ['jump', 'Jump'],
-                   ['flying', 'Flying'], ['activate', 'Activate'], ['options', 'Choose one:'], ['faeria', 'Faeria'], ['random', 'random']]
+                   ['flying', 'Flying'], ['activate', 'Activate'], ['options', 'Choose one:'], ['faeria', 'Faeria'],
+                   ['random', 'random']]
         result = ['', '', '', '', '']
         if len(desc) > 0:
             for action in actions:
@@ -302,7 +323,6 @@ class Faeriawikibot:
     Change strings to be capitalized.
 
     '''
-
     @staticmethod
     def fix_case(string):
         if string is None:
@@ -336,5 +356,5 @@ if __name__ == '__main__':
     fwb = Faeriawikibot()
     fwb.parse_merlin()
     fwb.merlin2cardinfo()
-    #fwb.update_cards()
+    # fwb.update_cards()
     fwb.update_all_images()
