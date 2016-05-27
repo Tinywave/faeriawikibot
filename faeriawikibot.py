@@ -82,12 +82,26 @@ class Faeriawikibot:
     '''
     @staticmethod
     def handle_unupdated_cards(card):
-        if card['card_id'] == '331':
+        if card['card_id'] == '331': # Wisdom
             card['card_name'] = 'Wisdom (Special)'
-        if card['card_id'] == '320':
+        if card['card_id'] == '320': # Twinsoul Spirit
             card['card_name'] = 'Twinsoul Spirit (Special)'
-        if card['card_id'] == '106':
+        if card['card_id'] == '97': # Gabrian Noble
+            card['rarity'] = 'Rare'
+        if card['card_id'] == '86': # Triton Chef
+            card['rarity'] = 'Epic'
+        if card['card_id'] == '119': # Triton Diver
+            card['rarity'] = 'Common'
+        if card['card_id'] == '106': # Tale of the Old Turtle
             card['desc'] = 'Add 3 random blue cards to your hand. They cost {faeria|3} less.'
+            card['faeria'] = '6'
+            card['lake'] = '3'
+        if card['card_id'] == '107': # Wavecrush Colossus
+            card['faeria'] = '8'
+            card['power'] = '7'
+            card['life'] = '7'
+            card['desc'] = 'Costs {faeria|1} less for each time you\'ve harvested from an enemy well (minimum cost: {faeria|4}).'
+
         return card
 
     '''
@@ -151,6 +165,7 @@ class Faeriawikibot:
             self.create_gamepedia_client()
         for x in range(0, len(self.merlinlist) - 1):
             mc = self.merlinlist[x]
+            print(mc['card_name'])
             card = self.cardlist[x]
             page = self.gc.read(mc['card_name'])
             text = page.text()
