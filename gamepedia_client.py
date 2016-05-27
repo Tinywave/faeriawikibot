@@ -26,7 +26,7 @@ class GamepediaClient:
     '''
 
     def read(self, pagename):
-        return self.mwc.Pages[pagename].text()
+        return self.mwc.Pages[pagename]
 
     '''
     Overwrite whole page with text
@@ -53,13 +53,9 @@ class GamepediaClient:
                     return
         self.mwc.upload(file=open(imagename, 'rb'), filename=destination, description=description, ignore=True)
 
-
-
-
     '''
     Upload remote image to wiki
     '''
-
     def upload_remote_image(self, url, destination, description):
         self.mwc.upload(url=url, filename=destination, description=description)
 

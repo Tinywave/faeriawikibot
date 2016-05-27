@@ -15,6 +15,11 @@ import resource_dict as r
 
 
 class Faeriawikibot:
+    actions = [['ranged_attack', 'Ranged'], ['charge', 'Charge'], ['gift', 'Gift'], ['production', 'Production'],
+                   ['combat', 'Combat'], ['protector', 'Protection'], ['taunt', 'Taunt'], ['haste', 'Haste'],
+                   ['last_words', 'Last Words'], ['deathtouch', 'Deathtouch'], ['aquatic', 'Aquatic'], ['jump', 'Jump'],
+                   ['flying', 'Flying'], ['activate', 'Activate'], ['options', 'Choose one:'], ['faeria', 'Faeria'],
+                   ['random', 'random']]
     merlinlist = []
     cardlist = []
     gc = None
@@ -54,17 +59,18 @@ class Faeriawikibot:
         ggen = gg.GamepediaGenerator()
 
         for mc in merlinlist:
-            abilitylist = self.extract_abilities(self.change_desc_actions_to_templates(mc['desc']))
+            mc['desc'] = self.change_desc_actions_to_templates(mc['desc'])
+            abilitylist = self.extract_abilities(mc['desc'])
             card = ggen.generate_card(card_id=mc['card_id'],
                                       illustration='{lang}_{card_id}.png'.format(lang='english', card_id=mc['card_id']),
                                       card_color=self.fix_case(mc['card_color']), card_name=mc['card_name'],
                                       card_type=self.fix_case(mc['card_type']), rarity=self.fix_case(mc['rarity']),
                                       gold=mc['gold'], faeria=mc['faeria'], lake=mc['lake'], mountain=mc['mountain'],
                                       desert=mc['desert'], forest=mc['forest'], power=mc['power'], life=mc['life'],
-                                      desc=self.change_desc_actions_to_templates(mc['desc']), codex1=mc['codex1'],
-                                      codex2=mc['codex2'], codex3=mc['codex3'], ability1=abilitylist[0],
-                                      ability2=abilitylist[1], ability3=abilitylist[2], ability4=abilitylist[3],
-                                      ability5=abilitylist[4])
+                                      desc=mc['desc'], codex1=mc['codex1'],
+                                      noformatdesc=self.remove_tags_from_description(mc['desc']), codex2=mc['codex2'],
+                                      codex3=mc['codex3'], ability1=abilitylist[0], ability2=abilitylist[1],
+                                      ability3=abilitylist[2], ability4=abilitylist[3], ability5=abilitylist[4])
             self.cardlist.append(card)
         return self.cardlist
 
@@ -80,6 +86,8 @@ class Faeriawikibot:
             card['card_name'] = 'Wisdom (Special)'
         if card['card_id'] == '320':
             card['card_name'] = 'Twinsoul Spirit (Special)'
+        if card['card_id'] == '106':
+            card['desc'] = 'Add 3 random blue cards to your hand. They cost {faeria|3} less.'
         return card
 
     '''
@@ -128,12 +136,7 @@ class Faeriawikibot:
     def create_action_templates(self):
         if self.gc is None:
             self.create_gamepedia_client()
-        actions = [['ranged_attack', 'Ranged'], ['charge', 'Charge'], ['gift', 'Gift'], ['production', 'Production'],
-                   ['combat', 'Combat'], ['protector', 'Protection'], ['taunt', 'Taunt'], ['haste', 'Haste'],
-                   ['last_words', 'Last Words'], ['deathtouch', 'Deathtouch'], ['aquatic', 'Aquatic'], ['jump', 'Jump'],
-                   ['flying', 'Flying'], ['activate', 'Activate'], ['options', 'Choose one:'], ['faeria', 'Faeria'],
-                   ['random', 'random']]
-        for action in actions:
+        for action in self.actions:
             page = self.gc.read('Template:{0}'.format(action[0]))
             if page.text() == '':
                 page.save('[[' + action[0] + '|' + action[1] + ' {{#if: {{{1|}}}|{{{1|}}} }}]]',
@@ -185,9 +188,6 @@ class Faeriawikibot:
                         changelog += self.generate_changelogitem(key, olddict[key], newdict[key])
                 except KeyError:
                     pass
-            print('******************')
-            print(olddict['card_name'])
-            print(changelog)
             return str(text).replace(oldtext, card).replace(
                 '{{empty|DO NOT REMOVE OR EDIT THIS OTHERWISE CHANGELOG UPDATE BREAKS}}', changelog)
         return str(text).replace(oldtext, card)
@@ -232,7 +232,7 @@ class Faeriawikibot:
             return '* {{cl_codexcode2|' + oldvalue + '|' + newvalue + '}}\n'
         elif key == 'codexcode3':
             return '* {{cl_codexcode3|' + oldvalue + '|' + newvalue + '}}\n'
-        elif key not in ['ability1', 'ability2', 'ability3', 'ability4', 'ability5', 'illustration']:
+        elif key not in ['ability1', 'ability2', 'ability3', 'ability4', 'ability5', 'illustration', 'noformatdesc']:
             return '* {{cl_unknown|' + oldvalue + '|' + newvalue + '}}\n'
         else:
             return ''
@@ -282,7 +282,22 @@ class Faeriawikibot:
     def change_desc_actions_to_templates(desc):
         desc = str(desc).replace('random', '{random}')
         return str(desc).replace('{', '{{').replace('}', '}}')
-
+    '''
+    Generate description without any tags/{{x}} in it.
+    '''
+    def remove_tags_from_description(self,desc):
+        desc = str(desc)
+        findall = re.findall('{{(?P<name>.*?)(|\|(?P<count>\d.*?))}}', desc)
+        for tag in findall:
+            for action in self.actions:
+                if action[0] in tag[0]:
+                    if action[0] == 'charge':
+                        desc = desc.replace('{{' + tag[0] + tag[1] + '}}', action[1] + ' ' + tag[2], 1)
+                    elif action[0] == 'faeria':
+                        desc = desc.replace('{{' + tag[0] + tag[1] + '}}', tag[2] + ' ' + action[1], 1)
+                    else:
+                        desc = desc.replace('{{' + tag[0] + '}}', action[1], 1)
+        return desc
     '''
     Replaces referenced cards in description with actual mediawiki links
     '''
@@ -302,16 +317,10 @@ class Faeriawikibot:
     Extract abilities from card description.
     This is useful for creating associations to the corresponding 'List of cards with X ability/effect'
     '''
-    @staticmethod
-    def extract_abilities(desc):
-        actions = [['ranged_attack', 'Ranged'], ['charge', 'Charge'], ['gift', 'Gift'], ['production', 'Production'],
-                   ['combat', 'Combat'], ['protection', 'Protection'], ['taunt', 'Taunt'], ['haste', 'Haste'],
-                   ['last_words', 'Last Words'], ['deathtouch', 'Deathtouch'], ['aquatic', 'Aquatic'], ['jump', 'Jump'],
-                   ['flying', 'Flying'], ['activate', 'Activate'], ['options', 'Choose one:'], ['faeria', 'Faeria'],
-                   ['random', 'random']]
+    def extract_abilities(self, desc):
         result = ['', '', '', '', '']
         if len(desc) > 0:
-            for action in actions:
+            for action in self.actions:
                 if ('{{' + action[0]) in str(desc) and action[0] not in result:
                     for i in range(0, len(result) - 1):
                         if result[i] == '':
@@ -356,5 +365,5 @@ if __name__ == '__main__':
     fwb = Faeriawikibot()
     fwb.parse_merlin()
     fwb.merlin2cardinfo()
-    # fwb.update_cards()
+    fwb.update_cards()
     fwb.update_all_images()

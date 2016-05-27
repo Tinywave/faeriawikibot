@@ -30,6 +30,7 @@ class GamepediaGenerator:
                            '| power = {power}\n' \
                            '| life = {life}\n' \
                            '| desc = {desc}\n' \
+                           '| noformatdesc = {noformatdesc}\n' \
                            '| ability1 = {ability1}\n' \
                            '| ability2 = {ability2}\n' \
                            '| ability3 = {ability3}\n' \
@@ -51,12 +52,13 @@ class GamepediaGenerator:
     Create card-string with current template.
     '''
     def generate_card(self, card_id='', illustration='', card_color='', card_name='', card_type='', rarity='', gold='',
-                      faeria='', lake='', mountain='', desert='', forest='', power='', life='', desc='', codex1='',
-                      codex2='', codex3='', ability1='', ability2='', ability3='', ability4='', ability5=''):
+                      faeria='', lake='', mountain='', desert='', forest='', power='', life='', desc='',
+                      noformatdesc='', codex1='', codex2='', codex3='', ability1='', ability2='', ability3='',
+                      ability4='', ability5=''):
         return '{' + self.template_cardinfobox.format(card_id=card_id, illustration=illustration, card_color=card_color,
                                                       card_name=card_name, card_type=card_type, rarity=rarity,
                                                       gold=gold, faeria=faeria, lake=lake, mountain=mountain,
                                                       desert=desert, forest=forest, power=power, life=life, desc=desc,
-                                                      codex1=codex1, codex2=codex2, codex3=codex3, ability1=ability1,
-                                                      ability2=ability2, ability3=ability3, ability4=ability4,
-                                                      ability5=ability5) + '}'
+                                                      noformatdesc=noformatdesc, codex1=codex1, codex2=codex2,
+                                                      codex3=codex3, ability1=ability1, ability2=ability2,
+                                                      ability3=ability3, ability4=ability4, ability5=ability5) + '}'
